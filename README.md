@@ -29,7 +29,7 @@ python scripts/analyze.py --csv data/metadata.csv --out out
 ```bash
 streamlit run app/streamlit_app.py
 ```
-- The app will auto-load data/metadata.csv if present, or you can upload it.
+- The app will prefer `data/metadata_sample.csv` if present, otherwise `data/metadata.csv`, or an uploaded file.
 
 Included
 - src/data_utils.py: loading, cleaning, and summary utilities
@@ -45,13 +45,18 @@ Mapping to Assignment Parts
 - Part 5 (Docs & Reflection): edit this README to add your insights
 
 Notes
-- If the full file is too large, you can sample rows:
+- If the full file is too large, you can sample rows quickly:
 ```python
 import pandas as pd
+# Option A: take first N rows
 sample = pd.read_csv('data/metadata.csv', nrows=50000)
 sample.to_csv('data/metadata_sample.csv', index=False)
+
+# Option B: random sample (requires knowing total rows or reading once)
+df = pd.read_csv('data/metadata.csv')
+df.sample(n=50000, random_state=42).to_csv('data/metadata_sample.csv', index=False)
 ```
-- Then point both the script and app to the sample file.
+- The Streamlit app will automatically use `data/metadata_sample.csv` if it exists.
 
 License
 MIT

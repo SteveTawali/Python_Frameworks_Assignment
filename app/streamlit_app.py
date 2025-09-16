@@ -32,13 +32,19 @@ def load_dataframe(file_buffer_or_path: str | io.BytesIO) -> pd.DataFrame:
     return basic_clean(df)
 
 
+sample_path = Path("data/metadata_sample.csv")
 default_path = Path("data/metadata.csv")
 uploaded = st.file_uploader("Upload metadata.csv (optional)", type=["csv"]) 
 
 if uploaded is not None:
     df_clean = load_dataframe(uploaded)
+    st.caption("Using uploaded file")
+elif sample_path.exists():
+    df_clean = load_dataframe(sample_path)
+    st.caption("Using local data/metadata_sample.csv")
 elif default_path.exists():
     df_clean = load_dataframe(default_path)
+    st.caption("Using local data/metadata.csv")
 else:
     st.info("Please upload the CORD-19 metadata.csv to begin.")
     st.stop()
