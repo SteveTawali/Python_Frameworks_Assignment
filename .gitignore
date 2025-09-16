@@ -19,6 +19,7 @@ venv/
 
 # Data
 data/*.csv
+!data/metadata_sample.csv
 data/*.json
 data/*.parquet
 
