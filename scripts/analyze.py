@@ -93,11 +93,22 @@ def main() -> None:
     print(f"Loading data from: {csv_path}")
     df = load_metadata(str(csv_path))
     print(f"Raw shape: {df.shape}")
-    print(df.dtypes.head())
+    print("\nData types (all columns):")
+    print(df.dtypes)
+    print("\nFirst 5 rows:")
+    print(df.head())
+    print("\nMissing values (raw, top 20 by count):")
+    print(df.isna().sum().sort_values(ascending=False).head(20))
+    # Basic statistics for numeric columns
+    try:
+        print("\nBasic statistics (numeric columns):")
+        print(df.describe().T)
+    except Exception as e:
+        print(f"describe() failed: {e}")
 
     df_clean = basic_clean(df)
     print(f"Clean shape: {df_clean.shape}")
-    print("Missing values after clean (selected):")
+    print("\nMissing values after clean (selected columns):")
     print(df_clean[["title", "publish_time", "journal", "source_x"]].isna().sum())
 
     # Summaries

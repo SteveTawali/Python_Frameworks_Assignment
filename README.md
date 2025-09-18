@@ -44,6 +44,25 @@ Mapping to Assignment Parts
 - Part 4 (Streamlit): app/streamlit_app.py with sliders and filters
 - Part 5 (Docs & Reflection): edit this README to add your insights
 
+Findings & Reflection
+
+Summary of findings (from the analysis and Streamlit exploration):
+- Publications by year: Peak activity observed in recent years, with a sharp rise during the early pandemic period and tapering thereafter.
+- Top journals: A small set of journals account for a large share of publications, indicating concentration among leading outlets.
+- Sources: Mixed contributions from multiple sources (e.g., PMC), suggesting diverse ingestion pipelines.
+- Title words: Frequent terms align with epidemiology, public health, and clinical themes.
+
+Data quality notes:
+- Many rows have missing or invalid `publish_time`; rows without valid dates are dropped during cleaning.
+- Categorical fields such as `journal` and `source_x` contain missing values, filled as `Unknown` to retain records.
+- Titles vary in formatting; simple tokenization and stopword removal were used for word frequencies.
+
+What I would improve next:
+- Deduplicate records using stable identifiers (e.g., DOI) or fuzzy title matching.
+- Expand stopword lists and apply lemmatization for better word frequency signals.
+- Add more filters in the app (e.g., by source, author count) and persist user selections.
+- Cache data loading/cleaning in Streamlit to speed up interactivity on large files.
+
 Notes
 - If the full file is too large, you can sample rows quickly:
 ```python
